@@ -76,10 +76,9 @@ class OnboardingView extends StatelessWidget {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool('login', true);
                 if (context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginView()),
-                  );
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                  ));
                 }
               },
             ),
@@ -145,10 +144,9 @@ class OnboardingView extends StatelessWidget {
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setBool('login', true);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginView()),
-                  );
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                  ));
                 },
                 child: Container(
                   width: 60,

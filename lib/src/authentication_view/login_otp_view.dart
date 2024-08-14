@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:swift_service/bottom_nav.dart';
 import 'package:swift_service/src/authentication_view/login_view.dart';
 import 'package:swift_service/src/authentication_view/widgets/custom_otp_view.dart';
-import 'package:swift_service/src/home_view/home_view.dart';
 import 'package:swift_service/utils/app_images.dart';
 
 class LoginOtpView extends StatelessWidget {
@@ -19,8 +18,9 @@ class LoginOtpView extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const LoginView()));
       },
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const BottomNav()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const BottomNav(),
+        ));
       },
     );
   }

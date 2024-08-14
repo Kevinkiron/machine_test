@@ -89,7 +89,10 @@ class LoginView extends StatelessWidget {
                   TextSpan(
                       text: 'Signup',
                       style: KStyles()
-                          .reg(text: '', size: 16, color: const Color(0xFF))
+                          .reg(
+                            text: '',
+                            size: 16,
+                          )
                           .style,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {

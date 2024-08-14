@@ -17,10 +17,9 @@ class SplashView extends StatelessWidget {
       body: BlocListener<SplashBloc, SplashState>(
         listener: (context, state) {
           if (state.status == Status.success) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginView()),
-            );
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const LoginView(),
+            ));
           }
         },
         child: Column(

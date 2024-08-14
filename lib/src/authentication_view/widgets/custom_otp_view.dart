@@ -98,7 +98,7 @@ class CustomOtpView extends StatelessWidget {
                             )),
                             10.height,
                             OtpTextField(
-                              fieldWidth: 65,
+                              fieldWidth: Constants.width * 0.17,
                               cursorColor: AppColors.black,
                               margin: const EdgeInsets.all(10),
                               numberOfFields: 4,

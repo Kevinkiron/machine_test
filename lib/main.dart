@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,6 +8,7 @@ import 'package:swift_service/bottom_nav.dart';
 
 import 'src/onboarding/onboarding_view.dart';
 import 'src/splash_view/splash_view.dart';
+import 'utils/global_extension.dart';
 import 'utils/provider_list.dart';
 
 void main() async {
@@ -20,14 +24,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Constants.width = MediaQuery.of(context).size.width;
+    Constants.height = MediaQuery.of(context).size.height;
     return MultiBlocProvider(
       providers: blocProviderList,
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true),
-        home: login ? const SplashView() : OnboardingView(),
-      ),
+      child: Platform.isIOS
+          ? CupertinoApp(
+              title: 'Swift Service',
+              debugShowCheckedModeBanner: false,
+              home: login ? const SplashView() : OnboardingView(),
+            )
+          : MaterialApp(
+              title: 'Swift Service',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(useMaterial3: true),
+              home: login ? const SplashView() : OnboardingView(),
+            ),
     );
   }
 }

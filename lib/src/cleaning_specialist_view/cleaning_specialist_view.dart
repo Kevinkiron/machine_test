@@ -110,8 +110,14 @@ class CleaningSpecialistView extends StatelessWidget {
                                     const BorderSide(color: Color(0xFFE6E6E8)),
                                 borderRadius: BorderRadius.circular(10)),
                             title: KStyles().reg(text: item.name, size: 16),
-                            subtitle:
+                            subtitle: Row(
+                              children: [
+                                Icon(Icons.star,
+                                    color: Colors.orange, size: 16),
+                                4.width,
                                 KStyles().reg(text: item.rating, size: 16),
+                              ],
+                            ),
                             trailing: Icon(item.saved
                                 ? Icons.bookmark
                                 : Icons.bookmark_border),

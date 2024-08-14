@@ -146,12 +146,9 @@ class SigninForm extends StatelessWidget {
             Navigator.of(context).pop();
           }
           if (context.mounted) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const BottomNav(),
-              ),
-            );
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const BottomNav(),
+            ));
           }
         });
         return AlertDialog(
