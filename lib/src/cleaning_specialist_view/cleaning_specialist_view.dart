@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
@@ -7,7 +8,7 @@ import '../../bloc/cleaning_bloc/cleaning_bloc.dart';
 import '../../utils/theme/app_colors.dart';
 
 class CleaningSpecialistView extends StatelessWidget {
-  CleaningSpecialistView({super.key});
+  const CleaningSpecialistView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +44,12 @@ class CleaningSpecialistView extends StatelessWidget {
                         margin: const EdgeInsets.only(right: 8.0),
                         decoration: BoxDecoration(
                           color: state.selectedIndex == index
-                              ? const Color(0xFF056c95)
+                              ? AppColors.primary
                               : Colors.white,
                           borderRadius: BorderRadius.circular(20.0),
                           border: Border.all(
                             color: state.selectedIndex == index
-                                ? const Color(0xFF056c95)
+                                ? AppColors.primary
                                 : const Color(0xFFE6E6E8),
                           ),
                         ),
@@ -117,7 +118,7 @@ class CleaningSpecialistView extends StatelessWidget {
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.asset(
-                                'assets/images/Image.png',
+                                AppImages.staffImage,
                                 width: 60,
                                 height: 80,
                               ),

@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:swift_service/src/authentication_view/signup_otp_view.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
+import 'package:swift_service/utils/theme/app_colors.dart';
 
+import '../../utils/app_images.dart';
 import 'signin_form.dart';
 import 'widgets/app_button.dart';
 import 'widgets/custom_textfield.dart';
@@ -26,7 +29,7 @@ class SignupView extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Image.asset(
-                        'assets/images/sign_up_logo.png',
+                        AppImages.signUpLogo,
                         fit: BoxFit.contain,
                         width: 200,
                         height: 200,
@@ -55,8 +58,8 @@ class SignupView extends StatelessWidget {
                               overflow: TextOverflow.visible,
                             ),
                             10.height,
-                            KStyles().reg(
-                              text: 'Sign in for fast services and new offers.',
+                            KStyles().light(
+                              text: 'Sign up to simplify your services.',
                               size: 14,
                             ),
                             20.height,
@@ -64,8 +67,15 @@ class SignupView extends StatelessWidget {
                             10.height,
                             const CustomTextfield(),
                             30.height,
-                            const AppButton(
+                            AppButton(
                               text: 'Receive Verification Code',
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignupOtpView()));
+                              },
                             ),
                             20.height,
                             Center(
@@ -74,17 +84,21 @@ class SignupView extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: 'Already a member?',
-                                    style:
-                                        KStyles().med(text: '', size: 16).style,
+                                    style: KStyles()
+                                        .reg(
+                                            text: '',
+                                            size: 16,
+                                            color: Colors.grey)
+                                        .style,
                                   ),
                                   WidgetSpan(child: 7.width),
                                   TextSpan(
                                       text: 'Signin',
                                       style: KStyles()
-                                          .med(
+                                          .reg(
                                               text: '',
                                               size: 16,
-                                              color: const Color(0xFF056C95))
+                                              color: AppColors.primary)
                                           .style,
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {

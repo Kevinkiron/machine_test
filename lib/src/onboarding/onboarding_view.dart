@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:swift_service/src/authentication_view/login_view.dart';
-import 'package:swift_service/src/authentication_view/widgets/app_button.dart';
+import 'package:swift_service/utils/common_widgets/app_button.dart';
+import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 import 'package:swift_service/utils/theme/app_colors.dart';
@@ -30,7 +31,7 @@ class OnboardingView extends StatelessWidget {
       height: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/onboard2.png'),
+          image: AssetImage(AppImages.onboard2),
           fit: BoxFit.fitHeight,
           alignment: Alignment.center,
         ),
@@ -74,10 +75,12 @@ class OnboardingView extends StatelessWidget {
               onTap: () async {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool('login', true);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginView()),
-                );
+                if (context.mounted) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginView()),
+                  );
+                }
               },
             ),
             20.height,
@@ -95,8 +98,8 @@ class OnboardingView extends StatelessWidget {
         activeDotDecoration: DotDecoration(
           width: 15,
           height: 15,
-          dotBorder: const DotBorder(color: Color(0xFF056C95), padding: 5),
-          color: const Color(0xFF056C95),
+          dotBorder: DotBorder(color: AppColors.primary, padding: 5),
+          color: AppColors.primary,
           borderRadius: BorderRadius.circular(50),
         ),
         dotDecoration: DotDecoration(
@@ -115,7 +118,7 @@ class OnboardingView extends StatelessWidget {
       height: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/onboard.png'),
+          image: AssetImage(AppImages.onboard),
           fit: BoxFit.fitHeight,
           alignment: Alignment.centerRight,
         ),

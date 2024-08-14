@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swift_service/src/authentication_view/login_view.dart';
+import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 import 'package:swift_service/utils/theme/app_colors.dart';
 
@@ -27,7 +28,7 @@ class SplashView extends StatelessWidget {
           children: [
             Center(
               child: Image.asset(
-                'assets/images/logo.png',
+                AppImages.logo,
                 width: 92,
                 height: 95,
               ),

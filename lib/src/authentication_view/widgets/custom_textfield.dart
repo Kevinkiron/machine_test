@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
@@ -20,7 +21,7 @@ class CustomTextfield extends StatelessWidget {
             minRadius: 20,
             backgroundColor: AppColors.transparent,
             child: Image.asset(
-              'assets/icons/India.png',
+              AppImages.indiaIcon,
               width: 32,
               height: 32,
               fit: BoxFit.fill,

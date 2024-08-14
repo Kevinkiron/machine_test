@@ -15,12 +15,11 @@ class AppButton extends StatelessWidget {
         width: double.infinity,
         height: 55,
         decoration: BoxDecoration(
-            color: const Color(0xFF056C95),
-            borderRadius: BorderRadius.circular(15)),
+            color: AppColors.primary, borderRadius: BorderRadius.circular(12)),
         child: Center(
-            child: KStyles().reg(
+            child: KStyles().light(
           text: text,
-          size: 14,
+          size: 16,
           color: AppColors.white,
         )),
       ),

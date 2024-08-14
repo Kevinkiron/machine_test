@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:swift_service/bottom_nav.dart';
+import 'package:swift_service/src/authentication_view/login_view.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/theme/app_colors.dart';
 
@@ -9,12 +10,27 @@ import '../../../utils/styles/text_styles.dart';
 import 'app_button.dart';
 
 class CustomOtpView extends StatelessWidget {
-  const CustomOtpView({super.key});
+  const CustomOtpView(
+      {super.key,
+      required this.image,
+      required this.color,
+      this.onCodeChanged,
+      this.onSubmit,
+      required this.textButton,
+      this.onTap,
+      this.reditNumber});
+  final String image;
+  final String textButton;
+  final Color color;
+  final void Function(String)? onCodeChanged;
+  final void Function(String)? onSubmit;
+  final void Function()? onTap;
+  final void Function()? reditNumber;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF207ec2),
+      backgroundColor: color,
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
@@ -27,7 +43,7 @@ class CustomOtpView extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Image.asset(
-                        'assets/images/login_logo.png',
+                        image,
                         fit: BoxFit.contain,
                         width: 200,
                         height: 200,
@@ -51,10 +67,35 @@ class CustomOtpView extends StatelessWidget {
                             15.height,
                             KStyles().med(text: 'Security Check', size: 30),
                             15.height,
-                            KStyles().reg(
-                              text: 'Please Verify code send',
-                              size: 14,
-                            ),
+                            RichText(
+                                text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text:
+                                      'Please verify with the code send to your phone \nnumber\t',
+                                  style: KStyles()
+                                      .light(text: '', size: 14, height: 1.5)
+                                      .style,
+                                ),
+                                TextSpan(
+                                    text: '7123456789\t',
+                                    style: KStyles()
+                                        .reg(text: '', size: 14, height: 1.5)
+                                        .style,
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {}),
+                                WidgetSpan(
+                                    alignment: PlaceholderAlignment.top,
+                                    child: GestureDetector(
+                                      onTap: reditNumber,
+                                      child: Image.asset(
+                                        'assets/icons/edit.png',
+                                        width: 10,
+                                        height: 10,
+                                      ),
+                                    )),
+                              ],
+                            )),
                             10.height,
                             OtpTextField(
                               fieldWidth: 65,
@@ -65,19 +106,13 @@ class CustomOtpView extends StatelessWidget {
                               borderColor: const Color(0xFF512DA8),
                               borderRadius: BorderRadius.circular(10),
                               showFieldAsBox: true,
-                              onCodeChanged: (String code) {},
-                              onSubmit: (String verificationCode) {},
+                              onCodeChanged: onCodeChanged,
+                              onSubmit: onSubmit,
                             ),
                             30.height,
                             AppButton(
-                              text: 'Verify & Login',
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const BottomNav()),
-                                );
-                              },
+                              text: textButton,
+                              onTap: onTap,
                             ),
                             20.height,
                             Center(
@@ -85,18 +120,18 @@ class CustomOtpView extends StatelessWidget {
                                   text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: 'Not a member?',
+                                    text: 'Didnt get code?',
                                     style:
-                                        KStyles().med(text: '', size: 16).style,
+                                        KStyles().reg(text: '', size: 16).style,
                                   ),
                                   WidgetSpan(child: 7.width),
                                   TextSpan(
-                                      text: 'Signup',
+                                      text: 'Resend',
                                       style: KStyles()
-                                          .med(
+                                          .reg(
                                               text: '',
                                               size: 16,
-                                              color: const Color(0xFF056C95))
+                                              color: AppColors.primary)
                                           .style,
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {}),
