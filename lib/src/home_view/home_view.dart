@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swift_service/data/models/category_model.dart';
+import 'package:swift_service/src/cleaning_specialist_view/cleaning_specialist_view.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
@@ -49,28 +50,37 @@ class HomeView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: categories[index].color,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Image.asset(
-                            scale: 4,
-                            categories[index].image,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CleaningSpecialistView()),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 8),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: categories[index].color,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Image.asset(
+                              scale: 4,
+                              categories[index].image,
+                            ),
                           ),
-                        ),
-                        8.height,
-                        KStyles().reg(
-                          text: categories[index].title,
-                          size: 14,
-                        ),
-                      ],
+                          8.height,
+                          KStyles().reg(
+                            text: categories[index].title,
+                            size: 14,
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),

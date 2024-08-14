@@ -6,6 +6,7 @@ import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
 import 'widgets/app_button.dart';
+import 'widgets/custom_otp_view.dart';
 import 'widgets/custom_textfield.dart';
 
 class LoginView extends StatelessWidget {
@@ -60,7 +61,17 @@ class LoginView extends StatelessWidget {
                             10.height,
                             const CustomTextfield(),
                             30.height,
-                            const AppButton(),
+                            AppButton(
+                              text: 'Receive Verification Code',
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CustomOtpView()),
+                                );
+                              },
+                            ),
                             20.height,
                             Center(
                               child: RichText(

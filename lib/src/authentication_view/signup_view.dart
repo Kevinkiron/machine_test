@@ -64,7 +64,9 @@ class SignupView extends StatelessWidget {
                             10.height,
                             const CustomTextfield(),
                             30.height,
-                            const AppButton(),
+                            const AppButton(
+                              text: 'Receive Verification Code',
+                            ),
                             20.height,
                             Center(
                               child: RichText(

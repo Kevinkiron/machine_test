@@ -54,11 +54,12 @@ class BottomNav extends StatelessWidget {
 
   Widget _appBar() {
     return AppBar(
-      backgroundColor: AppColors.white,
-      elevation: 4,
-      shadowColor: Colors.blue,
-      title: Row(
+      surfaceTintColor: AppColors.white,
+      leadingWidth: 400,
+      leading: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          20.width,
           const CircleAvatar(
             minRadius: 20,
             child: Icon(
@@ -67,6 +68,7 @@ class BottomNav extends StatelessWidget {
           ),
           10.width,
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               KStyles().light(text: 'Welcome Back!', size: 12),
@@ -75,6 +77,9 @@ class BottomNav extends StatelessWidget {
           )
         ],
       ),
+      backgroundColor: AppColors.white,
+      elevation: 4,
+      shadowColor: Color(0xFF056C95).withOpacity(0.4),
     );
   }
 }
