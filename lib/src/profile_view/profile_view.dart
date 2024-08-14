@@ -3,6 +3,9 @@ import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
+import '../../utils/theme/app_colors.dart';
+import '../authentication_view/login_view.dart';
+
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
@@ -14,14 +17,29 @@ class ProfileView extends StatelessWidget {
         _imageWithEdit(),
         10.height,
         KStyles().med(text: 'Chris Kevin', size: 20),
-        Container(
-          width: 200,
-          height: 50,
-          child: Row(
-            children: [
-              KStyles().reg(text: 'Logout', size: 16),
-              Image.asset('assets/icons/logout.png'),
-            ],
+        20.height,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const LoginView(),
+            ));
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: AppColors.primary),
+                borderRadius: BorderRadius.circular(20)),
+            width: 150,
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                KStyles()
+                    .reg(text: 'Logout', size: 16, color: AppColors.primary),
+                5.width,
+                Image.asset('assets/icons/logout.png',
+                    color: AppColors.primary),
+              ],
+            ),
           ),
         )
       ],

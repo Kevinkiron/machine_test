@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swift_service/bottom_nav.dart';
 
 import 'src/onboarding/onboarding_view.dart';
 import 'src/splash_view/splash_view.dart';
