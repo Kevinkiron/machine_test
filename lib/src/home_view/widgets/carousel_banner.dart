@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,18 +11,35 @@ class CarouselBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      height: 200,
-      child: PageView.builder(
-          controller: PageController(initialPage: 1),
-          onPageChanged: (index) {
-            context.read<HomeBloc>().add(UpdateBannerIndex(index));
-          },
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return Image.asset('assets/images/banner_${index + 1}.png');
-          }),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 25),
+          child: CarouselSlider(
+            options: CarouselOptions(
+              height: 130,
+              enlargeCenterPage: true,
+              autoPlay: true,
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enableInfiniteScroll: true,
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              viewportFraction: 1,
+            ),
+            items: state.banner.map((imageUrl) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: Image.asset(
+                  imageUrl,
+                  fit: BoxFit.fill,
+                ),
+              );
+            }).toList(),
+          ),
+        );
+      },
     );
   }
 }

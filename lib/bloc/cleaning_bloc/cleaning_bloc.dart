@@ -8,42 +8,42 @@ part 'cleaning_state.dart';
 class CleaningBloc extends Bloc<CleaningEvent, CleaningState> {
   List<CleaningModel> allItems = [
     CleaningModel(
-      image: 'assets/images/house_cleaning.png',
+      image: 'assets/images/Image.png',
       name: 'John',
       rating: '4.5 (14)',
       saved: true,
       category: Category.house,
     ),
     CleaningModel(
-      image: 'assets/images/car_wash.png',
+      image: 'assets/images/Image.png',
       name: 'Jacob',
       rating: '4.7 (1)',
       saved: false,
       category: Category.vehicles,
     ),
     CleaningModel(
-      image: 'assets/images/kitchen_cleaning.png',
+      image: 'assets/images/Image.png',
       name: 'Edison',
       rating: '4.3 (5)',
       saved: true,
       category: Category.house,
     ),
     CleaningModel(
-      image: 'assets/images/fridge_cleaning.png',
+      image: 'assets/images/Image.png',
       name: 'Joseph',
       rating: '4.6 (14)',
       saved: false,
       category: Category.appliances,
     ),
     CleaningModel(
-      image: 'assets/images/laundry.png',
+      image: 'assets/images/Image.png',
       name: 'Rikhil',
       rating: '4.8 (14)',
       saved: true,
       category: Category.house,
     ),
     CleaningModel(
-      image: 'assets/images/boat_cleaning.png',
+      image: 'assets/images/Image.png',
       name: 'Roy',
       rating: '4.4 (1)',
       saved: false,

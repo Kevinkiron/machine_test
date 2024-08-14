@@ -13,7 +13,17 @@ class ProfileView extends StatelessWidget {
         40.height,
         _imageWithEdit(),
         10.height,
-        KStyles().med(text: 'Chris Kevin', size: 20)
+        KStyles().med(text: 'Chris Kevin', size: 20),
+        Container(
+          width: 200,
+          height: 50,
+          child: Row(
+            children: [
+              KStyles().reg(text: 'Logout', size: 16),
+              Image.asset('assets/icons/logout.png'),
+            ],
+          ),
+        )
       ],
     );
   }

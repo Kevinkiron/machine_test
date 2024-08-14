@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:swift_service/bottom_nav.dart';
-import 'package:swift_service/src/authentication_view/login_view.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/theme/app_colors.dart';
 

@@ -27,7 +27,7 @@ class TopServicesGridView extends StatelessWidget {
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 1.7,
+                childAspectRatio: 1.8,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 15,
               ),
@@ -57,7 +57,7 @@ class TopServicesGridView extends StatelessWidget {
                         ],
                       ),
                       10.height,
-                      KStyles().med(
+                      KStyles().reg(
                         text: topServiceList[index].title,
                         size: 16,
                       ),
