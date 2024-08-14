@@ -7,7 +7,7 @@ import 'package:swift_service/utils/theme/app_colors.dart';
 
 import '../../utils/app_images.dart';
 import 'signin_form.dart';
-import 'widgets/app_button.dart';
+import '../../utils/common_widgets/app_button.dart';
 import 'widgets/custom_textfield.dart';
 
 class SignupView extends StatelessWidget {

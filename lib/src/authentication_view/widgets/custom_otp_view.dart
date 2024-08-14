@@ -7,7 +7,7 @@ import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/theme/app_colors.dart';
 
 import '../../../utils/styles/text_styles.dart';
-import 'app_button.dart';
+import '../../../utils/common_widgets/app_button.dart';
 
 class CustomOtpView extends StatelessWidget {
   const CustomOtpView(
