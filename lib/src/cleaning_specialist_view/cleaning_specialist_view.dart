@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swift_service/routes/routes_constants.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
@@ -10,7 +12,7 @@ import '../../data/models/category_model/category_model.dart';
 import '../../utils/theme/app_colors.dart';
 
 class CleaningSpecialistView extends StatelessWidget {
-  final Service? serviceList;
+  final List<Service>? serviceList;
   const CleaningSpecialistView({super.key, this.serviceList});
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CleaningSpecialistView extends StatelessWidget {
         backgroundColor: AppColors.white,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            context.pushNamed(RoutesConstants.homeRoute);
           },
           child: CircleAvatar(
             radius: 20,
@@ -34,19 +36,20 @@ class CleaningSpecialistView extends StatelessWidget {
             ),
           ),
         ),
-        title: KStyles().reg(text: 'Cleaning Specialists', size: 20),
+        title:
+            KStyles().reg(text: serviceList?.firstOrNull?.name ?? "", size: 20),
         centerTitle: true,
       ),
       body: BlocBuilder<CleaningBloc, CleaningState>(
         builder: (context, state) {
           return Column(
-            children: [
-              25.height,
-              _categoryHead(state, context),
-              20.height,
-              _listViewSection(state),
-            ],
-          );
+                  children: [
+                    25.height,
+                    _categoryHead(state, context),
+                    20.height,
+                    _listViewSection(state),
+                  ],
+                );
         },
       ),
     );
@@ -57,8 +60,9 @@ class CleaningSpecialistView extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        children: List.generate(state.filteredItems.length, (index) {
-          final item = state.filteredItems[index];
+        children: List.generate(
+            serviceList?.firstOrNull?.servicePeople?.length ?? 0, (index) {
+          final item = serviceList?.firstOrNull?.servicePeople?[index];
 
           return GestureDetector(
             onTap: () {},
@@ -75,8 +79,8 @@ class CleaningSpecialistView extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        item.image,
+                      child: Image.network(
+                        item?.profilePicture ?? '',
                         width: 80,
                         height: 80,
                         fit: BoxFit.cover,
@@ -88,7 +92,7 @@ class CleaningSpecialistView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           KStyles().reg(
-                            text: item.name,
+                            text: item?.name ?? "",
                             size: 16,
                             color: AppColors.black,
                           ),
@@ -105,7 +109,8 @@ class CleaningSpecialistView extends StatelessWidget {
                                     color: Color(0xFFFF9800), size: 16),
                                 4.width,
                                 KStyles().reg(
-                                  text: item.rating,
+                                  text:
+                                      "${item?.avgRating.toString() ?? ''} (${item?.reviewCount.toString() ?? ''})",
                                   size: 14,
                                   color: AppColors.black,
                                 ),
@@ -115,9 +120,12 @@ class CleaningSpecialistView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Icon(
-                      item.saved ? Icons.bookmark : Icons.bookmark_border,
-                      color: AppColors.primary,
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.bookmark_border,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ],
                 ),

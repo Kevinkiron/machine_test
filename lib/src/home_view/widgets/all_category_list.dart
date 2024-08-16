@@ -29,7 +29,7 @@ class AllCategoryListView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    context.goNamed(RoutesConstants.cleaningPath,
+                    context.pushNamed(RoutesConstants.cleaningPath,
                         extra: state.categoryList[index].services);
                   },
                   child: Container(

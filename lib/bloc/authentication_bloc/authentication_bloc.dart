@@ -20,7 +20,7 @@ class AuthenticationBloc
     on<NumberInput>(_phoneNumberInput);
     on<SigUpEvent>(_signUp);
   }
-  _phoneNumberInput(
+  Future<void> _phoneNumberInput(
       NumberInput event, Emitter<AuthenticationState> emit) async {
     emit(state.copyWith(load: true));
     final prefs = await SharedPreferences.getInstance();
@@ -59,7 +59,8 @@ class AuthenticationBloc
     }
   }
 
-  _signUp(SigUpEvent event, Emitter<AuthenticationState> emit) async {
+  Future<void> _signUp(
+      SigUpEvent event, Emitter<AuthenticationState> emit) async {
     emit(state.copyWith(load: true));
     final loginResponse = await loginRepository.createNewUser(
       phone: event.number,

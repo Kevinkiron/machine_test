@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:swift_service/data/api_endpoints.dart';
+import 'package:swift_service/data/models/top_rated_model/top_rated_model.dart';
 
 import '../api_excepion.dart';
 import '../api_service.dart';
@@ -44,6 +45,28 @@ class GetBannerDataSource {
           result.map((e) => CategoryModel.fromJson(e)).toList();
 
       return category;
+    } on APIException {
+      rethrow;
+    } catch (e) {
+      throw APIException(
+        message: e.toString(),
+        statusCode: 505,
+      );
+    }
+  }
+
+  Future<List<TopRatedModel>> getTopRatedService() async {
+    try {
+      final response = await _apiHelper.request(
+        url: ApiEndpoints.topRatedService,
+        method: Method.GET,
+      );
+      final List<dynamic> result = response.data;
+      log(result.toString());
+      final List<TopRatedModel> topRated =
+          result.map((e) => TopRatedModel.fromJson(e)).toList();
+
+      return topRated;
     } on APIException {
       rethrow;
     } catch (e) {

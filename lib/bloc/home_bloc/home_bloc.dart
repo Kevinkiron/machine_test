@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:swift_service/data/models/banner_model.dart/banner_model.dart';
 import 'package:swift_service/data/models/category_model/category_model.dart';
+import 'package:swift_service/data/models/top_rated_model/top_rated_model.dart';
 import 'package:swift_service/data/repository/home_repo.dart';
 
 part 'home_event.dart';
@@ -15,12 +16,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({required this.getBannerRepository}) : super(const HomeState()) {
     on<StartBannerSlider>(_onStartBannerSlider);
     on<GetCategory>(_getCategory);
+    on<GetTopRated>(_getTopRated);
   }
 
-  void _onStartBannerSlider(
+  Future<void> _onStartBannerSlider(
       StartBannerSlider event, Emitter<HomeState> emit) async {
     emit(state.copyWith(status: Status.loading));
     add(GetCategory());
+    add(GetTopRated());
     print('--------------------11111111');
     final response = await getBannerRepository.bannerGet();
 
@@ -36,7 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
   }
 
-  void _getCategory(GetCategory event, Emitter<HomeState> emit) async {
+  Future<void> _getCategory(GetCategory event, Emitter<HomeState> emit) async {
     emit(state.copyWith(status: Status.loading));
     final response = await getBannerRepository.getCategory();
 
@@ -48,6 +51,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       (result) {
         emit(state.copyWith(categoryList: result, status: Status.success));
         log(state.categoryList.toString());
+      },
+    );
+  }
+
+  Future<void> _getTopRated(GetTopRated event, Emitter<HomeState> emit) async {
+    emit(state.copyWith(status: Status.loading));
+    final response = await getBannerRepository.getTopRated();
+
+    response.fold(
+      (failure) {
+        emit(state.copyWith(status: Status.failure));
+        log(failure.toString(), name: 'fail');
+      },
+      (result) {
+        emit(state.copyWith(topRatedList: result, status: Status.success));
+        log(state.topRatedList.toString());
       },
     );
   }

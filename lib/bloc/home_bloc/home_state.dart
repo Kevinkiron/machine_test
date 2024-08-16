@@ -8,12 +8,14 @@ class HomeState extends Equatable {
   final List<String> banner;
   final List<BannerModel> bannerList;
   final List<CategoryModel> categoryList;
+  final List<TopRatedModel> topRatedList;
 
   const HomeState(
       {this.currentIndex = 0,
       this.status = Status.initial,
       this.bannerList = const <BannerModel>[],
       this.categoryList = const <CategoryModel>[],
+      this.topRatedList = const <TopRatedModel>[],
       this.banner = const <String>[
         'assets/images/banner_1.png',
         'assets/images/banner_2.png',
@@ -24,6 +26,7 @@ class HomeState extends Equatable {
     int? currentIndex,
     List<BannerModel>? bannerList,
     List<CategoryModel>? categoryList,
+    List<TopRatedModel>? topRatedList,
     Status? status,
   }) {
     return HomeState(
@@ -31,6 +34,7 @@ class HomeState extends Equatable {
       bannerList: bannerList ?? this.bannerList,
       categoryList: categoryList ?? this.categoryList,
       status: status ?? this.status,
+      topRatedList: topRatedList ?? this.topRatedList,
     );
   }
 
@@ -38,6 +42,7 @@ class HomeState extends Equatable {
   List<Object> get props => [
         currentIndex,
         status,
+        topRatedList,
         bannerList,
         categoryList,
       ];

@@ -71,12 +71,15 @@ class MyRouter {
           },
         ),
         GoRoute(
+          onExit: (context, state) => false,
           path: RoutesConstants.cleaningPath,
           name: RoutesConstants.cleaningRoute,
           builder: (context, state) {
-            log(state.uri.query.toString());
-
-            return const CleaningSpecialistView();
+            final services = state.extra as List<Service>;
+            log(services.toString());
+            return CleaningSpecialistView(
+              serviceList: services,
+            );
           },
         ),
       ]);
