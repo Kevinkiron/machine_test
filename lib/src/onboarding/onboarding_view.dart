@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:swift_service/routes/routes.dart';
+import 'package:swift_service/routes/routes_constants.dart';
 import 'package:swift_service/src/authentication_view/login_view.dart';
 import 'package:swift_service/utils/common_widgets/app_button.dart';
 import 'package:swift_service/utils/app_images.dart';
@@ -76,9 +79,7 @@ class OnboardingView extends StatelessWidget {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool('login', true);
                 if (context.mounted) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const LoginView(),
-                  ));
+                  context.go(RoutesConstants.loginPath);
                 }
               },
             ),
@@ -144,9 +145,9 @@ class OnboardingView extends StatelessWidget {
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setBool('login', true);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const LoginView(),
-                  ));
+                  if (context.mounted) {
+                    context.go(RoutesConstants.loginPath);
+                  }
                 },
                 child: Container(
                   width: 60,

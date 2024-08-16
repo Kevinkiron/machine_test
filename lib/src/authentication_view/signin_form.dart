@@ -1,5 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:swift_service/bottom_nav.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swift_service/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:swift_service/routes/routes_constants.dart';
 import 'package:swift_service/utils/common_widgets/app_button.dart';
 import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/global_extension.dart';
@@ -8,8 +14,11 @@ import '../../utils/styles/text_styles.dart';
 import '../../utils/theme/app_colors.dart';
 
 class SigninForm extends StatelessWidget {
-  const SigninForm({super.key});
-
+  final String phoneNumber;
+  SigninForm({super.key, required this.phoneNumber});
+  final TextEditingController name = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController email = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,76 +26,95 @@ class SigninForm extends StatelessWidget {
       appBar: _appbar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  KStyles().med(
-                    text: 'Let’s know more \nabout you',
-                    size: 31,
-                    overflow: TextOverflow.visible,
-                  ),
-                  20.height,
-                  KStyles().reg(
-                    text: 'Provide Basic information to setup your account',
-                    size: 14,
-                    overflow: TextOverflow.visible,
-                  ),
-                  30.height,
-                  Column(
+        child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) {
+            if (state.status == Status.success) {
+              return _showPopup(context);
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      KStyles().med(
+                        text: 'Let’s know more \nabout you',
+                        size: 31,
+                        overflow: TextOverflow.visible,
+                      ),
+                      20.height,
                       KStyles().reg(
-                        text: 'Name',
+                        text: 'Provide Basic information to setup your account',
                         size: 14,
                         overflow: TextOverflow.visible,
                       ),
-                      5.height,
-                      Row(
+                      30.height,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                              child: _textfieldCommon(hintext: 'First Name')),
-                          20.width,
-                          Expanded(
-                              child: _textfieldCommon(hintext: 'Last Name')),
+                          KStyles().reg(
+                            text: 'Name',
+                            size: 14,
+                            overflow: TextOverflow.visible,
+                          ),
+                          5.height,
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: _textfieldCommon(
+                                      hintext: 'First Name', controller: name)),
+                              20.width,
+                              Expanded(
+                                  child: _textfieldCommon(
+                                      hintext: 'Last Name',
+                                      controller: lastName)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      20.height,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          KStyles().reg(
+                            text: 'Email Address',
+                            size: 14,
+                            overflow: TextOverflow.visible,
+                          ),
+                          5.height,
+                          _textfieldCommon(
+                              hintext: 'Enter your email address',
+                              controller: email)
                         ],
                       ),
                     ],
                   ),
-                  20.height,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      KStyles().reg(
-                        text: 'Email Address',
-                        size: 14,
-                        overflow: TextOverflow.visible,
+                ),
+                state.load
+                    ? const SpinKitPianoWave(
+                        color: AppColors.primary,
+                        size: 30,
+                      )
+                    : AppButton(
+                        text: 'Finish Setup',
+                        onTap: () {
+                          context.read<AuthenticationBloc>().add(SigUpEvent(
+                              number: phoneNumber,
+                              context: context,
+                              name: name.text,
+                              lastName: lastName.text,
+                              email: email.text));
+                          // _showPopup(context);
+                        },
                       ),
-                      5.height,
-                      _textfieldCommon(hintext: 'Enter your email address')
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            AppButton(
-              text: 'Finish Setup',
-              onTap: () {
-                _showPopup(context);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const BottomNav(),
-                //   ),
-                // );
-              },
-            ),
-            5.height,
-          ],
+                5.height,
+              ],
+            );
+          },
         ),
       ),
     );
@@ -100,7 +128,7 @@ class SigninForm extends StatelessWidget {
       backgroundColor: AppColors.white,
       leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
           child: const Icon(Icons.arrow_back_ios_sharp)),
       title: KStyles().med(text: 'Get Started', size: 16),
@@ -108,9 +136,12 @@ class SigninForm extends StatelessWidget {
     );
   }
 
-  TextFormField _textfieldCommon({required String hintext}) {
+  TextFormField _textfieldCommon(
+      {required String hintext, TextEditingController? controller}) {
     return TextFormField(
+      controller: controller,
       keyboardType: TextInputType.number,
+      onFieldSubmitted: (value) {},
       decoration: InputDecoration(
         hintText: hintext,
         hintStyle: KStyles().reg(text: '', size: 16, color: Colors.grey).style,
@@ -143,12 +174,10 @@ class SigninForm extends StatelessWidget {
       builder: (BuildContext context) {
         Future.delayed(const Duration(seconds: 2), () {
           if (context.mounted) {
-            Navigator.of(context).pop();
+            context.pop();
           }
           if (context.mounted) {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const BottomNav(),
-            ));
+            context.go(RoutesConstants.homeRoute);
           }
         });
         return AlertDialog(

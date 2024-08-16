@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:swift_service/routes/routes_constants.dart';
 import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
@@ -20,9 +22,7 @@ class ProfileView extends StatelessWidget {
         20.height,
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const LoginView(),
-            ));
+            context.go(RoutesConstants.loginPath);
           },
           child: Container(
             decoration: BoxDecoration(

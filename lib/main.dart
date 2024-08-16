@@ -3,23 +3,23 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:swift_service/routes/routes.dart';
 
-import 'src/onboarding/onboarding_view.dart';
-import 'src/splash_view/splash_view.dart';
+import 'data/api_service.dart';
 import 'utils/global_extension.dart';
 import 'utils/provider_list.dart';
+import 'utils/string_const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-  final login = prefs.getBool('login') ?? false;
-  runApp(MyApp(login: login));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final bool login;
-  const MyApp({super.key, required this.login});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +28,16 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: blocProviderList,
       child: Platform.isIOS
-          ? CupertinoApp(
+          ? CupertinoApp.router(
               title: 'Swift Service',
               debugShowCheckedModeBanner: false,
-              home: login ? const SplashView() : OnboardingView(),
+              routerConfig: MyRouter.router,
             )
-          : MaterialApp(
+          : MaterialApp.router(
               title: 'Swift Service',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(useMaterial3: true),
-              home: login ? const SplashView() : OnboardingView(),
+              routerConfig: MyRouter.router,
             ),
     );
   }

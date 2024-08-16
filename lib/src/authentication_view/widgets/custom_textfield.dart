@@ -6,8 +6,9 @@ import 'package:swift_service/utils/styles/text_styles.dart';
 import '../../../utils/theme/app_colors.dart';
 
 class CustomTextfield extends StatelessWidget {
-  const CustomTextfield({super.key, this.controller});
+  const CustomTextfield({super.key, this.controller, this.onSubmit});
   final TextEditingController? controller;
+  final void Function(String)? onSubmit;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,6 +36,7 @@ class CustomTextfield extends StatelessWidget {
           10.width,
           Expanded(
             child: TextFormField(
+              onFieldSubmitted: onSubmit,
               controller: controller,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(

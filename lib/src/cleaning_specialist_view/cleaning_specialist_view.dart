@@ -1,15 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
 import '../../bloc/cleaning_bloc/cleaning_bloc.dart';
+import '../../data/models/category_model/category_model.dart';
 import '../../utils/theme/app_colors.dart';
 
 class CleaningSpecialistView extends StatelessWidget {
-  const CleaningSpecialistView({super.key});
+  final Service? serviceList;
+  const CleaningSpecialistView({super.key, this.serviceList});
   @override
   Widget build(BuildContext context) {
+    log(serviceList.toString());
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(

@@ -13,17 +13,21 @@ class CustomOtpView extends StatelessWidget {
       required this.image,
       required this.color,
       this.onCodeChanged,
+      required this.number,
       this.onSubmit,
       required this.textButton,
+      this.handleControllers,
       this.onTap,
       this.reditNumber});
   final String image;
   final String textButton;
+  final String number;
   final Color color;
   final void Function(String)? onCodeChanged;
   final void Function(String)? onSubmit;
   final void Function()? onTap;
   final void Function()? reditNumber;
+  final void Function(List<TextEditingController?>)? handleControllers;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +80,7 @@ class CustomOtpView extends StatelessWidget {
                                       .style,
                                 ),
                                 TextSpan(
-                                    text: '7123456789\t',
+                                    text: number,
                                     style: KStyles()
                                         .reg(text: '', size: 14, height: 1.5)
                                         .style,
@@ -106,6 +110,7 @@ class CustomOtpView extends StatelessWidget {
                               showFieldAsBox: true,
                               onCodeChanged: onCodeChanged,
                               onSubmit: onSubmit,
+                              handleControllers: handleControllers,
                             ),
                             30.height,
                             AppButton(
