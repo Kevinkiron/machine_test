@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swift_service/routes/routes_constants.dart';
 import 'package:swift_service/utils/app_images.dart';
 import 'package:swift_service/utils/global_extension.dart';
 import 'package:swift_service/utils/styles/text_styles.dart';
 
 import '../../utils/theme/app_colors.dart';
-import '../authentication_view/login_view.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -21,7 +21,9 @@ class ProfileView extends StatelessWidget {
         KStyles().med(text: 'Chris Kevin', size: 20),
         20.height,
         GestureDetector(
-          onTap: () {
+          onTap: () async {
+            final pref = await SharedPreferences.getInstance();
+            pref.remove('isLoggedIn');
             context.go(RoutesConstants.loginPath);
           },
           child: Container(

@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swift_service/routes/routes_constants.dart';
-import 'package:swift_service/src/profile_view/profile_view.dart';
 import 'package:swift_service/utils/global_extension.dart';
 
 import '../../../bloc/home_bloc/home_bloc.dart';
-import '../../../data/models/category_model.dart';
 import '../../../utils/styles/text_styles.dart';
-import '../../cleaning_specialist_view/cleaning_specialist_view.dart';
 
 class AllCategoryListView extends StatelessWidget {
   const AllCategoryListView({
@@ -29,8 +26,10 @@ class AllCategoryListView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    context.pushNamed(RoutesConstants.cleaningPath,
-                        extra: state.categoryList[index].services);
+                    context.pushNamed(RoutesConstants.cleaningPath, extra: [
+                      state.categoryList[index].services,
+                      state.categoryList[index].name,
+                    ]);
                   },
                   child: Container(
                     padding:

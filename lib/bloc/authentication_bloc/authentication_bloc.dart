@@ -35,6 +35,7 @@ class AuthenticationBloc
           log(result.toString(), name: 'res');
           prefs.setString('otp', result.otp.toString());
           if (result.user == true) {
+            prefs.setBool('isLoggedIn', true);
             emit(state.copyWith(
                 status: Status.success,
                 otpLocal: prefs.getString('otp'),

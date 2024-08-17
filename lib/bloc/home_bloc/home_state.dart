@@ -4,17 +4,19 @@ enum Status { initial, loading, failure, success }
 
 class HomeState extends Equatable {
   final Status status;
+  final bool load;
   final int currentIndex;
   final List<String> banner;
   final List<BannerModel> bannerList;
-  final List<CategoryModel> categoryList;
+  final List<StructureAllCategories> categoryList;
   final List<TopRatedModel> topRatedList;
 
   const HomeState(
       {this.currentIndex = 0,
       this.status = Status.initial,
+      this.load = false,
       this.bannerList = const <BannerModel>[],
-      this.categoryList = const <CategoryModel>[],
+      this.categoryList = const <StructureAllCategories>[],
       this.topRatedList = const <TopRatedModel>[],
       this.banner = const <String>[
         'assets/images/banner_1.png',
@@ -24,13 +26,15 @@ class HomeState extends Equatable {
 
   HomeState copyWith({
     int? currentIndex,
+    bool? load,
     List<BannerModel>? bannerList,
-    List<CategoryModel>? categoryList,
+    List<StructureAllCategories>? categoryList,
     List<TopRatedModel>? topRatedList,
     Status? status,
   }) {
     return HomeState(
       currentIndex: currentIndex ?? this.currentIndex,
+      load: load ?? this.load,
       bannerList: bannerList ?? this.bannerList,
       categoryList: categoryList ?? this.categoryList,
       status: status ?? this.status,
@@ -41,6 +45,7 @@ class HomeState extends Equatable {
   @override
   List<Object> get props => [
         currentIndex,
+        load,
         status,
         topRatedList,
         bannerList,

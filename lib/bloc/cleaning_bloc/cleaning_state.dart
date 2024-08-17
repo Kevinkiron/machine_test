@@ -1,30 +1,27 @@
 part of 'cleaning_bloc.dart';
 
 class CleaningState extends Equatable {
-  final int selectedIndex;
-  final List<CleaningModel> filteredItems;
-  final List<String> category;
+  final List<ServicePersonDataBase> savedServices;
 
-  const CleaningState(
-      {this.selectedIndex = 0,
-      this.filteredItems = const [],
-      this.category = const <String>[
-        'All',
-        'House',
-        'Vehicles',
-        'Appliances'
-      ]});
+  final int selectedIndex;
+
+  const CleaningState({
+    this.selectedIndex = 0,
+    this.savedServices = const [],
+  });
 
   CleaningState copyWith({
+    List<ServicePersonDataBase>? savedServices,
     int? selectedIndex,
-    List<CleaningModel>? filteredItems,
+    List<Service>? serviceList,
+    List<ServicePerson>? filteredItems,
   }) {
     return CleaningState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
-      filteredItems: filteredItems ?? this.filteredItems,
+      savedServices: savedServices ?? this.savedServices,
     );
   }
 
   @override
-  List<Object> get props => [selectedIndex, filteredItems];
+  List<Object> get props => [selectedIndex, savedServices];
 }

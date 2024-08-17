@@ -17,10 +17,11 @@ class SplashView extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: BlocListener<SplashBloc, SplashState>(
         listener: (context, state) {
-          if (state.status == Status.login) {
+          if (state.status == Status.home) {
+            context.go(RoutesConstants.homePath);
+          } else if (state.status == Status.login) {
             context.go(RoutesConstants.loginPath);
-          }
-          if (state.status == Status.onboard) {
+          } else if (state.status == Status.onboard) {
             context.go(RoutesConstants.onboardingPath);
           }
         },

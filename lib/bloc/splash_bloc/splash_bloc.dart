@@ -12,7 +12,13 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   _splashNav(NaviagteToApp event, Emitter<SplashState> emit) async {
     final prefs = await SharedPreferences.getInstance();
     final login = prefs.getBool('login') ?? false;
-    if (login == true) {
+    final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      await Future.delayed(const Duration(seconds: 3), () {
+        emit(state.copyWith(status: Status.home));
+      });
+    } else if (login == true) {
       await Future.delayed(const Duration(seconds: 3), () {
         emit(state.copyWith(status: Status.login));
       });

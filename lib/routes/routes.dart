@@ -2,17 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swift_service/data/models/category_model/category_model.dart';
-import 'package:swift_service/routes/routes_constants.dart';
-import 'package:swift_service/src/authentication_view/login_otp_view.dart';
-import 'package:swift_service/src/authentication_view/signin_form.dart';
-import 'package:swift_service/src/authentication_view/signup_view.dart';
-import 'package:swift_service/src/cleaning_specialist_view/cleaning_specialist_view.dart';
-import 'package:swift_service/src/onboarding/onboarding_view.dart';
-import 'package:swift_service/src/splash_view/splash_view.dart';
 
 import '../bottom_nav.dart';
+import '../src/authentication_view/login_otp_view.dart';
 import '../src/authentication_view/login_view.dart';
+import '../src/authentication_view/signin_form.dart';
+import '../src/authentication_view/signup_view.dart';
+import 'package:swift_service/data/models/structure_categorey_model.dart/structure_all_categories.dart';
+
+import '../src/cleaning_specialist_view/cleaning_specialist_view.dart';
+import '../src/onboarding/onboarding_view.dart';
+import '../src/splash_view/splash_view.dart';
+import 'routes_constants.dart';
 
 class MyRouter {
   /// The route configuration.
@@ -75,10 +76,14 @@ class MyRouter {
           path: RoutesConstants.cleaningPath,
           name: RoutesConstants.cleaningRoute,
           builder: (context, state) {
-            final services = state.extra as List<Service>;
-            log(services.toString());
+            final List<dynamic> extras = state.extra as List<dynamic>;
+
+            final List<Service> services = extras[0] as List<Service>;
+
+            final String name = extras[1] as String;
             return CleaningSpecialistView(
               serviceList: services,
+              name: name,
             );
           },
         ),

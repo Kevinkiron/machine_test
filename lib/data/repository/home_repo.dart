@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:swift_service/data/models/banner_model.dart/banner_model.dart';
+import 'package:swift_service/data/models/structure_categorey_model.dart/structure_all_categories.dart';
 import 'package:swift_service/data/models/top_rated_model/top_rated_model.dart';
 
 import '../api_excepion.dart';
 import '../data_source/home_datasource.dart';
 import '../failure.dart';
-import '../models/category_model/category_model.dart';
 import '../type_def.dart';
 
 class GetBannerRepository {
@@ -26,9 +26,21 @@ class GetBannerRepository {
     }
   }
 
-  ResultFuture<List<CategoryModel>> getCategory() async {
+  // ResultFuture<List<CategoryModel>> getCategory() async {
+  //   try {
+  //     final result = await _getBannerDataSource.getCategory();
+  //     log(result.toString());
+  //     return Right(result);
+  //   } on APIException catch (e) {
+  //     return Left(
+  //       APIFailure.fromException(e),
+  //     );
+  //   }
+  // }
+
+  ResultFuture<List<StructureAllCategories>> getAllCategory() async {
     try {
-      final result = await _getBannerDataSource.getCategory();
+      final result = await _getBannerDataSource.getAllCategory();
       log(result.toString());
       return Right(result);
     } on APIException catch (e) {

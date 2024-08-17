@@ -3,16 +3,19 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:swift_service/routes/routes.dart';
 
-import 'data/api_service.dart';
+import 'data/hive_db/service_model.dart';
 import 'utils/global_extension.dart';
 import 'utils/provider_list.dart';
-import 'utils/string_const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ServicePersonDataBaseAdapter());
+
+  await Hive.openBox('dataBase');
   runApp(MyApp());
 }
 
