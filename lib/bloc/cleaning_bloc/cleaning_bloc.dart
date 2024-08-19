@@ -62,7 +62,7 @@ class CleaningBloc extends Bloc<CleaningEvent, CleaningState> {
 
     if (bookmarksBox.containsKey(event.servicePersonId)) {
       await bookmarksBox.delete(event.servicePersonId);
-      log('Service person with id ${event.servicePersonId} removed from bookmarks.');
+      log(event.servicePersonId.toString());
     }
 
     add(const FetchSaved());

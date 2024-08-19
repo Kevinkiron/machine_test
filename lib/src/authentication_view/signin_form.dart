@@ -140,7 +140,6 @@ class SigninForm extends StatelessWidget {
       {required String hintext, TextEditingController? controller}) {
     return TextFormField(
       controller: controller,
-      keyboardType: TextInputType.number,
       onFieldSubmitted: (value) {},
       decoration: InputDecoration(
         hintText: hintext,
